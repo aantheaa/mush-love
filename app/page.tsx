@@ -31,7 +31,7 @@ export default function Home() {
         setImageData(`data:image/jpeg;base64,${data}`);
         if (!hasMush(txt)) {
           setTimeout(() => {
-            alert("🍄 nice try 🍄");
+            alert("🍄 nice try, but you're missing the mushrooms 🍄");
           }, 0);
         }
       } else {
