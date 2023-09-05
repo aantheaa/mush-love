@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Monofett } from "next/font/google";
 import hasMush from "@/lib/mushDetector";
+import JSConfetti from "js-confetti";
 
 // watercolor painting, cluster of mushrooms with psychedelic coloring, bright colors, magical feeling
 const monofett = Monofett({
@@ -15,6 +16,10 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [imageData, setImageData] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
+  const confetti = useRef<JSConfetti>();
+  useEffect(() => {
+    confetti.current = new JSConfetti();
+  }, []);
 
   const handleSend = async (txt: string) => {
     try {
@@ -34,6 +39,11 @@ export default function Home() {
             alert("🍄 nice try, but you're missing the mushrooms 🍄");
           }, 0);
         }
+        confetti.current?.addConfetti({
+          emojis: ["🍄"],
+          emojiSize: 50,
+          confettiNumber: 100,
+        });
       } else {
         console.error("Failed: " + response.status);
         alert("oh no something went wrong");
