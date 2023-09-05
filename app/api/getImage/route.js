@@ -6,16 +6,14 @@ export async function POST(req) {
     "Content-Type": "application/json",
     Authorization: `Bearer ${process.env.SUBSTRATE_SECRET_KEY}`,
   };
-  console.log(myHeaders);
   const { text } = await req.json();
 
   try {
     const response = await fetch("https://api.substrate.run/sdxl", {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({ prompt: text }),
+      body: JSON.stringify({ prompt: text, steps: 30 }),
     });
-    console.log(response);
 
     if (response.ok) {
       const responseData = await response.json();
