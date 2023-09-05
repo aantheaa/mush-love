@@ -79,6 +79,13 @@ export default function Home() {
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSend();
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        }}
         style={{
           padding: 8,
           borderRadius: 10,
