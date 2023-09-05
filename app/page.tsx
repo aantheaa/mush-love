@@ -134,12 +134,22 @@ export default function Home() {
         {isLoading ? "🍄 loading 🍄" : "🍄 send 🍄"}
       </button>
       {imageData && (
-        <img
-          src={imageData}
-          alt="Fetched"
-          style={{ maxWidth: "100%", borderRadius: 10, maxHeight: "90vh" }}
-        />
+        <>
+          <img
+            src={imageData}
+            alt="Fetched"
+            style={{ maxWidth: "100%", borderRadius: 10, maxHeight: "90vh" }}
+          />
+          <a
+            href={imageData}
+            style={{ color: "gray", marginTop: 24, fontSize: 14 }}
+            download={`${input.replace(/[,.]/g, "").replace(/ /g, "-")}.jpeg`}
+          >
+            download
+          </a>
+        </>
       )}
+
       <div
         style={{
           bottom: "0",
