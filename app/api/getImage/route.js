@@ -1,18 +1,24 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  const myHeaders = {
+  const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
     Authorization: `Bearer ${process.env.SUBSTRATE_SECRET_KEY}`,
   };
   const { text } = await req.json();
+  let prompt;
+  if (!text.toLowerCase().includes("shroom")) {
+    prompt = `mushrooms, ${text}`;
+  } else {
+    prompt = text;
+  }
 
   try {
     const response = await fetch("https://api.substrate.run/sdxl", {
       method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify({ prompt: text, steps: 30 }),
+      headers,
+      body: JSON.stringify({ prompt, steps: 32 }),
     });
 
     if (response.ok) {

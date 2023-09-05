@@ -109,7 +109,7 @@ export default function Home() {
           borderWidth: 0,
         }}
         className={isLoading ? "bounce" : ""}
-        disabled={isLoading}
+        disabled={isLoading || !input}
       >
         {isLoading ? "🍄 loading 🍄" : "send it"}
       </button>
