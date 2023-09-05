@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import hasMush from "../../../lib/mushDetector";
 
 function mushify(text) {
   let finalPrompt;
 
   if (text.startsWith("!")) {
     finalPrompt = text.slice(1);
-  } else if (text.includes("shroom")) {
+  } else if (hasMush(text)) {
     finalPrompt = text;
   } else {
     finalPrompt = `shroom ${text}`;

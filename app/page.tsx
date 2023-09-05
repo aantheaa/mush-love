@@ -163,7 +163,8 @@ export default function Home() {
           fontSize: 13,
         }}
       >
-        by Anthea
+        made by Anthea
+        <p> powered by substrate labs </p>
       </div>
     </main>
   );
