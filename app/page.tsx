@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Monofett } from "next/font/google";
+import hasMush from "@/lib/mushDetector";
 
 // watercolor painting, cluster of mushrooms with psychedelic coloring, bright colors, magical feeling
 const monofett = Monofett({
@@ -15,7 +16,7 @@ export default function Home() {
   const [imageData, setImageData] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSend = async () => {
+  const handleSend = async (txt: string) => {
     try {
       setIsLoading(true);
       const response = await fetch("/api/getImage", {
@@ -23,12 +24,16 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: input }),
+        body: JSON.stringify({ text: txt }),
       });
-
       if (response.ok) {
         const { data } = await response.json();
         setImageData(`data:image/jpeg;base64,${data}`);
+        if (!hasMush(txt)) {
+          setTimeout(() => {
+            alert("🍄 nice try 🍄");
+          }, 0);
+        }
       } else {
         console.error("Failed: " + response.status);
         alert("oh no something went wrong");
@@ -83,7 +88,7 @@ export default function Home() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleSend();
+            handleSend(input);
             e.stopPropagation();
             e.preventDefault();
           }
@@ -97,7 +102,7 @@ export default function Home() {
         rows={2}
       />
       <button
-        onClick={handleSend}
+        onClick={() => handleSend(input)}
         style={{
           fontSize: "18px",
           marginTop: "20px",

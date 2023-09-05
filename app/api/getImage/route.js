@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import hasMush from "../../../lib/mushDetector";
 
 export async function POST(req) {
   const headers = {
@@ -8,7 +9,7 @@ export async function POST(req) {
   };
   const { text } = await req.json();
   let prompt;
-  if (!text.toLowerCase().includes("shroom")) {
+  if (!hasMush(text)) {
     prompt = `mushrooms, ${text}`;
   } else {
     prompt = text;
