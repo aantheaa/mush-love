@@ -73,7 +73,9 @@ export default function Home() {
         }}
         className={`${monofett.className} .site-header`}
       >
-        welcome to mush love ai
+        <span style={{ opacity: 0.6 }}>welcome to</span>
+        <br />
+        mush love ai
       </h3>
       <p
         style={{
@@ -81,6 +83,7 @@ export default function Home() {
           marginTop: "50px",
           marginBottom: "50px",
           maxWidth: 500,
+          color: "gray",
         }}
       >
         a fungi-run lab hidden deep in the forest, dedicated to making all your
@@ -108,10 +111,12 @@ export default function Home() {
           borderRadius: 10,
           width: "100%",
           maxWidth: 600,
+          fontSize: 14,
         }}
         rows={2}
       />
       <button
+        id="submit-btn"
         onClick={() => handleSend(input)}
         style={{
           fontSize: "18px",
@@ -126,7 +131,7 @@ export default function Home() {
         className={isLoading ? "bounce" : ""}
         disabled={isLoading || !input}
       >
-        {isLoading ? "🍄 loading 🍄" : "send it"}
+        {isLoading ? "🍄 loading 🍄" : "🍄 send 🍄"}
       </button>
       {imageData && (
         <img
@@ -141,9 +146,11 @@ export default function Home() {
           width: "100%",
           textAlign: "center",
           margin: "32px 0",
+          color: "gray",
+          fontSize: 13,
         }}
       >
-        By Anthea
+        by Anthea
       </div>
     </main>
   );
