@@ -62,6 +62,7 @@ export default function Home() {
         alignItems: "center",
         width: "100vw",
         padding: "0 16px",
+        height: "100vh",
       }}
     >
       <h3
@@ -112,6 +113,8 @@ export default function Home() {
           width: "100%",
           maxWidth: 600,
           fontSize: 14,
+          resize: "none",
+          minHeight: 52,
         }}
         rows={2}
       />
@@ -131,7 +134,7 @@ export default function Home() {
         className={isLoading ? "bounce" : ""}
         disabled={isLoading || !input}
       >
-        {isLoading ? "🍄 loading 🍄" : "🍄 send 🍄"}
+        {isLoading ? <span className="loader">🍄</span> : "🍄 send 🍄"}
       </button>
       {imageData && (
         <>
@@ -155,7 +158,7 @@ export default function Home() {
           bottom: "0",
           width: "100%",
           textAlign: "center",
-          margin: "32px 0",
+          padding: "32px 0",
           color: "gray",
           fontSize: 13,
         }}
