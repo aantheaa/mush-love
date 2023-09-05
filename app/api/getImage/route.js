@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
-import hasMush from "../../../lib/mushDetector";
+
+function mushify(text) {
+  let finalPrompt;
+
+  if (text.startsWith("!")) {
+    finalPrompt = text.slice(1);
+  } else if (text.includes("shroom")) {
+    finalPrompt = text;
+  } else {
+    finalPrompt = `shroom ${text}`;
+  }
+
+  return finalPrompt;
+}
 
 export async function POST(req) {
   const headers = {
@@ -8,18 +21,13 @@ export async function POST(req) {
     Authorization: `Bearer ${process.env.SUBSTRATE_SECRET_KEY}`,
   };
   const { text } = await req.json();
-  let prompt;
-  if (!hasMush(text)) {
-    prompt = `mushrooms, ${text}`;
-  } else {
-    prompt = text;
-  }
+  const prompt = mushify(text);
 
   try {
     const response = await fetch("https://api.substrate.run/sdxl", {
       method: "POST",
       headers,
-      body: JSON.stringify({ prompt, steps: 32 }),
+      body: JSON.stringify({ prompt, steps: 32, width: 800, height: 800 }),
     });
 
     if (response.ok) {
