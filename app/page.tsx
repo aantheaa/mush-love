@@ -71,9 +71,11 @@ export default function Home() {
         a fungi-run lab hidden deep in the forest, dedicated to making all your
         mushroom dreams come true. use your imagination to describe a scene
         involving mushrooms and be sure to specify the artistic style
-        you&apos;re imagining, ex) watercolor painting, colors, and overall
-        vibe. It usually takes around 10 seconds for the fungis to work their
-        magic, so take a few deep breaths in and out as you wait :)
+        you&apos;re imagining, e.g.{" "}
+        <span style={{ color: "lightgoldenrodyellow" }}>
+          watercolor painting, colors, and overall vibe.
+        </span>{" "}
+        It usually takes around 5 seconds for the fungis to work their magic...
       </p>
 
       <textarea
