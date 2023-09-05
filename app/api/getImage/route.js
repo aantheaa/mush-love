@@ -15,6 +15,7 @@ export async function POST(req) {
       headers: myHeaders,
       body: JSON.stringify({ prompt: text }),
     });
+    console.log(response);
 
     if (response.ok) {
       const responseData = await response.json();
