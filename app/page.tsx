@@ -1,15 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { Monofett } from "next/font/google";
 
 // watercolor painting, cluster of mushrooms with psychedelic coloring, bright colors, magical feeling
+const monofett = Monofett({
+  subsets: ["latin"],
+  variable: "--font-monofett",
+  weight: "400",
+});
 
 export default function Home() {
   const [input, setInput] = useState("");
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/getImage", {
         method: "POST",
         headers: {
@@ -23,23 +31,96 @@ export default function Home() {
         setImageData(`data:image/jpeg;base64,${data}`);
       } else {
         console.error("Failed: " + response.status);
+        alert("oh no something went wrong");
       }
     } catch (error) {
       console.error("Failed:", error);
     }
+    setIsLoading(false);
   };
 
   return (
-    <main>
-      <div>
-        <div>By Anthea</div>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100vw",
+        padding: "0 16px",
+      }}
+    >
+      <h3
+        style={{
+          textAlign: "center",
+          marginTop: "50px",
+          fontSize: 48,
+          color: "salmon",
+        }}
+        className={`${monofett.className} .site-header`}
+      >
+        welcome to mush love ai
+      </h3>
+      <p
+        style={{
+          textAlign: "center",
+          marginTop: "50px",
+          marginBottom: "50px",
+          maxWidth: 500,
+        }}
+      >
+        a fungi-run lab hidden deep in the forest, dedicated to making all your
+        mushroom dreams come true. use your imagination to describe a scene
+        involving mushrooms and be sure to specify the artistic style
+        you&apos;re imagining, ex) watercolor painting, colors, and overall
+        vibe. It usually takes around 10 seconds for the fungis to work their
+        magic, so take a few deep breaths in and out as you wait :)
+      </p>
+
+      <textarea
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        style={{
+          padding: 8,
+          borderRadius: 10,
+          width: "100%",
+          maxWidth: 600,
+        }}
+        rows={2}
+      />
+      <button
+        onClick={handleSend}
+        style={{
+          fontSize: "18px",
+          marginTop: "20px",
+          marginBottom: "20px",
+          padding: "8px 16px",
+          cursor: isLoading ? "not-allowed" : "pointer",
+          borderRadius: 12,
+          background: "salmon",
+          borderWidth: 0,
+        }}
+        className={isLoading ? "bounce" : ""}
+        disabled={isLoading}
+      >
+        {isLoading ? "🍄 loading 🍄" : "send it"}
+      </button>
+      {imageData && (
+        <img
+          src={imageData}
+          alt="Fetched"
+          style={{ maxWidth: "100%", borderRadius: 10, maxHeight: "90vh" }}
+        />
+      )}
+      <div
+        style={{
+          bottom: "0",
+          width: "100%",
+          textAlign: "center",
+          margin: "32px 0",
+        }}
+      >
+        By Anthea
       </div>
-      <div style={{ textAlign: "center" }}>
-        <input value={input} onChange={(e) => setInput(e.target.value)} />
-        <button onClick={handleSend}>Send</button>
-        {imageData && <img src={imageData} alt="Fetched" />}
-      </div>
-      <p>welcome to mush love</p>
     </main>
   );
 }
