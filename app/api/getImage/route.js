@@ -4,7 +4,7 @@ export async function POST(req, res) {
   const myHeaders = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    Authorization: "Bearer apik_tBMK3wKpQHuf0V4opcMPYpNZQC0Uq9VB",
+    Authorization: `Bearer ${process.env.SUBSTRATE_SECRET_KEY}`,
   };
   const { text } = await req.json();
 
