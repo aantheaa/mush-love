@@ -46,7 +46,9 @@ export default function Home() {
         });
       } else {
         console.error("Failed: " + response.status);
-        alert("oh no something went wrong");
+        alert(
+          "uh oh! looks like the mush lab is still warming up...try pressing 'send' a few more times!",
+        );
       }
     } catch (error) {
       console.error("Failed:", error);
