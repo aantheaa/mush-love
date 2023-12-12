@@ -35,7 +35,7 @@ export async function POST(req) {
         height: 1024,
         use_ssd: false,
         use_turbo: false,
-        use_hosted_url: true,
+        use_hosted_url: false,
         use_refiner: true,
       }),
     });

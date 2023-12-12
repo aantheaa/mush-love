@@ -34,7 +34,11 @@ export default function Home() {
       if (response.ok && response) {
         const { data } = await response.json();
         const imgData = data?.[0].uri;
-        imgData && setImageData(imgData);
+        if (imgData && imgData.startsWith("https://")) {
+          setImageData(imgData);
+        } else if (imgData && imgData.length > 100) {
+          setImageData(`data:image/jpeg;base64,${imgData}`);
+        }
         if (!hasMush(txt)) {
           setTimeout(() => {
             alert("🍄 nice try, but you're missing the mushrooms 🍄");
