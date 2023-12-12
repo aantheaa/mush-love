@@ -30,7 +30,7 @@ export async function POST(req) {
       headers,
       body: JSON.stringify({
         prompt,
-        steps: 30,
+        steps: 32,
         width: 1024,
         height: 1024,
         use_ssd: false,
