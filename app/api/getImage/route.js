@@ -36,9 +36,10 @@ export async function POST(req) {
         use_ssd: false,
         use_turbo: false,
         use_hosted_url: true,
+        use_refiner: true,
       }),
     });
-    if (response) {
+    if (response.ok) {
       const res = await response.json();
       return NextResponse.json(res);
     } else {
