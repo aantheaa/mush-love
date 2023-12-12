@@ -31,9 +31,10 @@ export default function Home() {
         },
         body: JSON.stringify({ text: txt }),
       });
-      if (response.ok) {
+      if (response.ok && response) {
         const { data } = await response.json();
-        setImageData(`data:image/jpeg;base64,${data}`);
+        const imgData = data?.[0].uri;
+        imgData && setImageData(imgData);
         if (!hasMush(txt)) {
           setTimeout(() => {
             alert("🍄 nice try, but you're missing the mushrooms 🍄");

@@ -28,12 +28,19 @@ export async function POST(req) {
     const response = await fetch("https://api.substrate.run/sdxl", {
       method: "POST",
       headers,
-      body: JSON.stringify({ prompt, steps: 32, width: 800, height: 800 }),
+      body: JSON.stringify({
+        prompt,
+        steps: 30,
+        width: 1024,
+        height: 1024,
+        use_ssd: false,
+        use_turbo: false,
+        use_hosted_url: true,
+      }),
     });
-
     if (response.ok) {
-      const responseData = await response.json();
-      return NextResponse.json({ data: responseData.generated_images[0] });
+      const res = await response.json();
+      return NextResponse.json(res);
     } else {
       return NextResponse.json({ error: "Failed to fetch image" });
     }
