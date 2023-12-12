@@ -38,7 +38,7 @@ export async function POST(req) {
         use_hosted_url: true,
       }),
     });
-    if (response.ok) {
+    if (response) {
       const res = await response.json();
       return NextResponse.json(res);
     } else {
